@@ -13,8 +13,6 @@ import java.util.Collection;
  * @author saurabh
  */
 public class Utils {
-    
-    
 
     public static JSONResponse generateResponse(Integer status, String message, Object data) {
         JSONResponse resObj = new JSONResponse();
@@ -31,7 +29,7 @@ public class Utils {
     public static Boolean isNullOrEmpty(String value) {
         return value == null || value.isEmpty();
     }
-    
+
     public static void checkWhereAppender(StringBuilder queryBuilder) {
         if (queryBuilder.lastIndexOf("WHERE") > 0) {
             queryBuilder.append(" AND ");
@@ -46,6 +44,17 @@ public class Utils {
         } else {
             queryBuilder.append(" WHERE ").append(appendervalue).append("  ");
         }
+    }
+
+    public static JSONResponsePagination generateResponsePagination(String status, String message, Object data,
+            Integer totalCount, Integer filterd) {
+        JSONResponsePagination resObj = new JSONResponsePagination();
+        resObj.setStatus(status);
+        resObj.setMessage(message);
+        resObj.setData(data);
+        resObj.setRecordsTotal(totalCount);
+        resObj.setRecordsFiltered(filterd);
+        return resObj;
     }
 
 }

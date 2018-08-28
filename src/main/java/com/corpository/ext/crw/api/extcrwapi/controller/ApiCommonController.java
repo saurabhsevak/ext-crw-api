@@ -26,6 +26,7 @@ import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 /**
@@ -95,6 +96,16 @@ public class ApiCommonController {
             LOGGER.error("Error in ApiCommonController: ", ex);
             return Utils.generateResponse(CorpositoryConstants.RESPONSE_STATUS_ERROR, messageSource.getMessage("unknownmessage", null, LocaleContextHolder.getLocale()), null);
         }
+    }
+
+    @RequestMapping(value = "/otpmaster/lsit/", method = RequestMethod.POST)
+    @ApiOperation(value = "Get list master with pagination", notes = "Get list master with pagination")
+    public Object getOtpMaster(@RequestParam(name = "start", defaultValue = "0") Integer start,
+            @RequestParam(name = "length", defaultValue = "10") Integer length,
+            @RequestParam(name = "search[value]", required = false) String search,
+            @RequestParam(name = "otptype", required = false, defaultValue = "0") Integer otpType
+    ) throws Exception {
+        return otpMasterService.getOtpMaster(start, length, search, otpType);
     }
 
 }
